@@ -1,6 +1,7 @@
-// Unzip files compressed with 7z in UTF-8
+// Unzip files compressed with 7z,
 //7z a -tzip archive.zip @listfile.txt -scsUTF-8 -sccUTF-8 -spf
-(7zFile) => 
+//The good value for encodeFormat is 850 (DOS/WINDOWS) or UTF-8
+(ZIPFile, encodeFormat) => 
 let
     ushort = BinaryFormat.ByteOrder(BinaryFormat.UnsignedInteger16, ByteOrder.LittleEndian),
     uint = BinaryFormat.ByteOrder(BinaryFormat.UnsignedInteger32, ByteOrder.LittleEndian),
@@ -45,9 +46,9 @@ let
                         ]),
                     (fileInfo) => BinaryFormat.Record(
                         [
-                            FileName = BinaryFormat.Text(fileInfo[Len], TextEncoding.Unicode),
+                            FileName = BinaryFormat.Text(fileInfo[Len], encodeFormat),
                             Fields = BinaryFormat.Binary(fileInfo[FieldsLen]),
-                            FileComment = BinaryFormat.Text(fileInfo[FileCommentLength], TextEncoding.Unicode),
+                            FileComment = BinaryFormat.Text(fileInfo[FileCommentLength], encodeFormat),
                             Disk = BinaryFormat.Transform(BinaryFormat.Null, each fileInfo[Disk]),
                             InternalFileAttr = BinaryFormat.Transform(BinaryFormat.Null, each fileInfo[Disk]),
                             ExternalAttr = BinaryFormat.Transform(BinaryFormat.Null, each fileInfo[InternalFileAttr]),
@@ -83,7 +84,7 @@ let
                                 ]),
                             (fileInfo) => BinaryFormat.Record(
                                 [
-                                    FileName = BinaryFormat.Text(fileInfo[Len], TextEncoding.Unicode),
+                                    FileName = BinaryFormat.Text(fileInfo[Len], encodeFormat),
                                     Fields = BinaryFormat.Binary(fileInfo[FieldsLen])
                                 ]) 
                         ),
