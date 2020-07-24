@@ -1,6 +1,7 @@
 // Unzip files compressed with 7z,
 //7z a -tzip archive.zip @listfile.txt -scsUTF-8 -sccUTF-8 -spf
 //The good value for encodeFormat is 850 (DOS/WINDOWS) or UTF-8
+//credits to artemus https://community.powerbi.com/t5/Power-Query/How-to-connect-Azure-DevOps-REST-API-in-to-power-bi/td-p/895217
 (ZIPFile, encodeFormat) => 
 let
     ushort = BinaryFormat.ByteOrder(BinaryFormat.UnsignedInteger16, ByteOrder.LittleEndian),
