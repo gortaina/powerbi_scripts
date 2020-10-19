@@ -1,8 +1,10 @@
 //RemoverAcento e se Texto = null ignora
+//Trata casos como D'FONSECA D'ANTÔNIO PARA D FONSECA D ANTONIO
 (Texto) =>
 let
 		ListaAcentos = 
 		{
+                {"'"," "},
                 {"à","a"},
                 {"á","a"},
                 {"â","a"},
